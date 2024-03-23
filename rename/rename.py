@@ -1,6 +1,6 @@
-import subprocess
+import subprocess, json
 
-defect_labels = []
+defect_labels = ["add-on;markings;text"]
 
 def get_labels(meta_filename: str):
     with open(meta_filename) as f:
@@ -8,7 +8,7 @@ def get_labels(meta_filename: str):
     return list(map(lambda shape: shape['label'], meta['shapes']))
 
 def insert_prefix_to_filename(prefix, filename):
-    subprocess.run(['mv', filename, './' + prefix + filename[2:]])
+    subprocess.run(['mv', filename, './' + prefix + '_' + filename[2:]])
 
 
 output_images = subprocess.run(['find', '-name', '*.jpg'], stdout=subprocess.PIPE)
@@ -25,6 +25,6 @@ for filename in filenames_images:
         else:
             insert_prefix_to_filename('labeled_' + '_'.join(sorted(labels)), filename)
     else:
-        insert_prefix_to_filename('unlabeled_', filename)
+        insert_prefix_to_filename('unlabeled', filename)
 
 
