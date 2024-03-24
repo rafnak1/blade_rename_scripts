@@ -1,6 +1,5 @@
 import subprocess, json
-
-defect_labels = ['leading edge;erosion;coating or LEP only', 'leading edge;erosion;continuous or deep', 'leading edge;erosion;spotty or laminate', 'leading edge;erosion;eroded tip', 'trailing edge;crack;superficial', 'surface;coating damage;superficial', 'trailing edge;crack;deep', 'surface;crack or laminate defect;superficial', 'surface;burn damage;superficial', 'surface;burn damage;deep']
+from defect_labels import defect_labels
 
 def get_labels(meta_filename: str):
     with open(meta_filename) as f:
