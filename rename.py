@@ -1,6 +1,6 @@
 import subprocess, json
 
-defect_labels = ["add-on;markings;text"]
+defect_labels = ['leading edge;erosion;coating or LEP only', 'leading edge;erosion;continuous or deep', 'leading edge;erosion;spotty or laminate', 'leading edge;erosion;eroded tip', 'trailing edge;crack;superficial', 'surface;coating damage;superficial', 'trailing edge;crack;deep', 'surface;crack or laminate defect;superficial', 'surface;burn damage;superficial', 'surface;burn damage;deep']
 
 def get_labels(meta_filename: str):
     with open(meta_filename) as f:
@@ -8,7 +8,9 @@ def get_labels(meta_filename: str):
     return list(map(lambda shape: shape['label'], meta['shapes']))
 
 def insert_prefix_to_filename(prefix, filename):
-    subprocess.run(['mv', filename, './' + prefix + '_' + filename[2:]])
+    path = filename[:filename.rfind('/')]
+    file = filename[filename.rfind('/') + 1:]
+    subprocess.run(['mv', filename, path + '/' + prefix + '_' + file])
 
 
 output_images = subprocess.run(['find', '-name', '*.jpg'], stdout=subprocess.PIPE)
