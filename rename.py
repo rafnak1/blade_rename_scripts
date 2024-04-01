@@ -9,8 +9,8 @@ def get_labels(meta_filename: str):
 def insert_prefix_to_filename(prefix, filename):
     path = filename[:filename.rfind('/')]
     file = filename[filename.rfind('/') + 1:]
+    prefix = prefix.replace(" ", "_")
     subprocess.run(['mv', filename, path + '/' + prefix + '_' + file])
-
 
 output_images = subprocess.run(['find', '-name', '*.jpg'], stdout=subprocess.PIPE)
 filenames_images = output_images.stdout.decode('utf-8').split()
